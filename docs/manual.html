@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html;charset=utf-8" />
+		<title>Waxtablet: Manual</title>
+
+        <script src="js/jquery-1.11.2.js"></script>
+
+        <link rel="stylesheet" href="manual.css">
+		<link rel="stylesheet" href="media_queries.css">
+
+
+	</head>
+	<body>
+  		<header class="group">
+            <span class="logo">Manual</span>
+        <div id="tagline">
+        </div>
+ 	   </header>
+    <!-- MAIN -->
+
+	<div class="container">
+		<section>
+			<hr class="section-top-line"></hr>
+			<div class="section-content">
+				<!-- INSERT -->
+            	<h1 class="page-title">Waxtablet Manual</h1>
+				<h2>Information and Specifications</h2>
+				<table class="html-ref-table">
+					<tr>
+                    <td class="html-ref-table-td"><code>Author: </code></td>
+                    <td class="html-ref-table-td"><code>aescwork (aescwork@protonmail.com)</code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code>Application Web Site: </code></td>
+                    <td class="html-ref-table-td"><code>https://github.com/aescwork/waxtablet </code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code>Language: </code></td>
+                    <td class="html-ref-table-td"><code>Python (versions 2.7, 3)</code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code>Current Version: </code></td>
+                    <td class="html-ref-table-td"><code>1.0 (as of Wed Aug 16 2017)</code></td>
+					</tr>
+
+					<tr>
+                    <td class="html-ref-table-td"><code>Platforms: </code></td>
+                    <td class="html-ref-table-td"><code>Microsoft Windows, Linux, Unix </code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code>User Interface: </code></td>
+                    <td class="html-ref-table-td"><code>Command Line, Web Browser </code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code>Data Persistence: </code></td>
+                    <td class="html-ref-table-td"><code>sqlite3 (configuration settings and user data) </code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code>Logging: </code></td>
+                    <td class="html-ref-table-td"><code>None </code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code>Source Code: </code></td>
+                    <td class="html-ref-table-td"><code>Available for Download: https://github.com/aescwork/waxtablet </code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code>License: </code></td>
+                    <td class="html-ref-table-td"><code>MIT (see LICENSE on Application Web Site)</code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code>Documentation: </code></td>
+                    <td class="html-ref-table-td"><code>Documentation and Users Manual available at https://github.com/aescwork/waxtablet/docs </code></td>
+					</tr>
+				</table>
+				
+				<h2>Introduction</h2>
+					<p>Waxtablet is a terminal or command-line application for creating, reading, updating, deleting
+						and displaying text information. The text information is organized into and stored as Entries which are
+						stored in one or more databases.  It was specifically written to serve as a journal program, but it can also be used  
+						for documentation, notes or general organization of information. </p>
+					<p>The text information -- the Entry -- is entered into a plain Hyper Text Markup Language (html) file, called 
+						"<code>input.html</code>".  This file can 
+						be located anywhere on the computer.  When the information is done being entered, <code>input.html</code> can then be 
+						read by waxtablet, the information in the file is parsed and stored in the current Entry database.  </p>
+					<p>waxtablet treats an Entry as a distinct unit-grouping of information.  An entry consists of:
+						<ol>
+							<li>An Entry Number.</li>
+							<li>Entry Text.</li>
+							<li>Entry Keywords.</li>
+							<li>An Entry Date.</li>
+							<li>The name of the database (hereafter called the "entry-database") file where the Entry data is stored.</li>
+						</ol>
+						</p>
+					<p><code>input.html</code> is used not only for creating a new Entry, but also for modifying existing Entries. 
+						This will be discussed below. </p>
+					<p>Entries in the current entry-database can be selected according to certain criteria, such as Entry number, 
+						date range, text search and more.</p>
+					<p>Entries can also be updated.  For this, they can be selected according to certain criteria as mentioned above.  When they are
+						selected, they are written to <code>input.html</code>, which can then be modified.  </p>
+					<p>Entries can also be deleted, again according to certain search criteria.</p>
+				<h2>Installation</h2>
+					<p class="sub-section" style="font-weight: bold; background-color: #c4c4c4; padding-left: 10px; width: 10%">Preliminaries</p>
+					<p>In order to use waxtablet, python version 2.6 or higher must be installed.</p>
+					<p>In order to install the application, the <a href="https://pip.pypa.io/en/stable/">pip package manager</a> must be installed.</p>
+					<p class="sub-section" style="font-weight: bold; background-color: #c4c4c4; padding-left: 10px; width: 10%">Install</p>
+					<ol>
+						<li>Download the code from github <a href="https://github.com/aescwork/waxtablet">here</a> or use git in the terminal:
+							<br></br>
+							<p>
+								<code>git clone https://github.com/aescwork/waxtablet</code></br>
+							</p>
+						</li>
+						<li>Navigate into the <code>dist</code> directory.</li>
+						<li>Linux/Unix users, run:
+							<br></br>
+							<p>
+								<code>sudo pip install waxtablet-1.0.tar.gz</code>
+								<span class="shrink">(The waxtablet version number you see may be different.)</span></br>
+							</p>
+						</li>
+						<li>Windows users, run:
+							<br></br>
+							<p>
+								<code>pip install waxtablet-1.0.tar.gz</code>
+								<span class="shrink">(The waxtablet version number you see may be different.)</span></br>
+							</p>
+						</li>
+						<li>Pip will install waxtablet in the default location for applications which are available to all users.
+						</li>
+						<li>Navigate back up a directory and into the <code>scripts</code> directory. </li>
+						<li>Use the install_additional_files.py script to copy over the directories and their files used by waxtablet in your home directory.  Run:
+							<br></br>
+							<p>
+								<code>python install_additional_files.py </code>
+							</p>
+								Microsoft Windows users should see the <code>waxtablet</code> directory in their <code>Users\&lt;username&gt;</code> directory.
+								Linux/Unix users should see the <code>.waxtablet</code> directory by navigating to their home directory and running
+							<p>
+								<code>ls -al</code>
+							</p>
+						</li>
+						<li>Test the waxtablet installation.  Run:
+							<p>
+								<code>waxtablet -M</code>
+							</p>
+							The Settings Main Menu should now display.
+						</li>
+					</ol>
+					<p></p>
+				<h2>Getting Started</h2>
+					<p>Once installation is complete, all of the directories and files needed for waxtablet are created and installed:</p>
+					<p>
+						<ul>
+							<li><code>wtab_usr_data</code>, containing:
+								<ul>
+									<li><code>wtab_app</code></li>
+								</ul>
+							<li><code>html-templates</code>, containing:
+								<ul>
+									<li><code> default.html</code></li>
+								</ul>
+							</li>
+							<li><code>entry-databases</code> </li>
+							<li><code>io_files</code>, containing:
+								<ul>
+									<li><code>input.html</code></li>
+									<li><code>output.html</code></li>
+									<li><code>default.css</code></li>
+									<li><code>media_queries.css</code></li>
+								</ul>
+							</li>
+						</ul>
+					<br/>
+					</p>
+					<p>Before using the application, create an entry-database where Entries will be stored.
+						Use the following command:</p>
+					<p class="codeline"><code>waxtablet -N my-new-entry-database</code></p>
+					<p>Next, set this newly created entry-database to the current database:</p>
+					<p class="codeline"><code>waxtablet -C my-new-entry-database</code></p>
+					<p>waxtablet is now ready to create, read, update and delete Entries.  (See below for how to do these.)
+				<h2>Settings Main Menu</h2>
+					<p>After installation has been completed the Settings Main Menu can be used to review and change certain settings:  </p>
+					<p>
+						<ul>
+							<li>The full (absolute) path to the directory where the html templates are stored.</li>
+							<li>The full (absolute) path to the directory where the entry databases are stored.</li>
+						</li>
+					<p>
+					</ol>
+					<p></p>
+					<p></p>
+				<h2>Getting Started</h2>
+					<p>Upon installing this application, all of the directories and files needed for waxtablet are created and installed:</p>
+					<p>
+						<ul>
+							<li><code>html-templates</code>, containing:
+								<ul>
+									<li><code> default.html</code></li>
+								</ul>
+							</li>
+							<li><code>entry-databases</code> </li>
+							<li><code>io_files</code>, containing:
+								<ul>
+									<li><code>input.html</code></li>
+									<li><code>output.html</code></li>
+									<li><code>default.css</code></li>
+									<li><code>media_queries.css</code></li>
+								</ul>
+							</li>
+						</ul>
+					<br/>
+					</p>
+					<p>Before using the application, create an entry-database where Entries will be stored.
+						Use the following command:</p>
+					<p class="codeline"><code>waxtablet -N my-new-entry-database</code></p>
+					<p>Next, set this newly created entry-database to the current database:</p>
+					<p class="codeline"><code>waxtablet -C my-new-entry-database</code></p>
+					<p>waxtablet is now ready to create, read, update and delete Entries.  (See below for how to do these.)
+				<h2>Settings Main Menu</h2>
+					<p>After installation has been completed the Settings Main Menu can be used to review and change certain settings:  </p>
+					<p>
+						<ul>
+							<li>The full (absolute) path to the directory where the html templates are stored.</li>
+							<li>The full (absolute) path to the directory where the entry databases are stored.</li>
+							<li>Current html template used for displaying entries.</li>
+							<li>The full (absolute) path to the directory to and creation of the input.html and output.html files.</li>
+							<li>The current entry database</li>
+							<li>Delete one or more html templates.</li>
+							<li>Delete one or more entry databases</li>
+							<li>Automatically delete Entries if merged with another Entry during an update.</li>
+							<li>Set to display fail and success messages on after executions are completed.</li>
+						</ul>
+					</p>
+					<p>The command to start the Settings Main Menu is: </p>
+					<p class="codeline"><code>waxtablet -M</code></p>
+					<p class="sub-section">Directories for Waxtablet Files</p>
+					<p>If the Settings Main Menu is used to change a path to a (new) directory, that directory needs to be created first in the filesystem.
+						</p>
+					<p class="sub-section">Combining Options and Arguments in a Single Command</p>
+					<p>Generally, different options can be combined together which execute different functions of the application.  The following
+						example sets a new entry-database to use, displays all the keywords in the current entry-database and create a new Entry
+						in the current entry-database:
+					<p class="codeline"><code>waxtablet -N "personal" -l -v c</code></p>
+						<p>However, Updating, Reading and Deleting Entries must be done with separate commands. The following example attempts to
+						first retrieve Entries for display by searching for keywords, then Update Entries by group and then Delete some Entries
+						by group:</p>
+					<p class="codeline"><code>waxtablet -v r -e "python computers mobile" -v u -g "1 2 5 7" -v d -g "3 4 9 11"</code></p>
+					<p>This won't work.  The only thing the above command will do is retrieve the Entries for display and then exit.  The Update and Delete
+						functions won't be executed.  This is because once a Read, Update or Delete Entries function is called, the action is executed
+						and the application then immediately exits.</p>
+					<p>The above commands would each need to be run separately:</p>
+					<p class="codeline"><code>waxtablet -v r -e "python computers mobile" </code></p>
+					<p class="codeline"><code>waxtablet -v u -g "1 2 5 7"</code></p>
+					<p class="codeline"><code>waxtablet -v d -g "3 4 9 11"</code></p>
+					<p>In any case, It is recommended that Reading, Updating and Deleting Entries by run as commands which execute those functions only and
+						don't call any other options.  While the application can otherwise handle calls to multiple options, calling too many options 
+						together in a single command might result in unexpected behavior.</p>
+				<h2>Creating Entries</h2>
+					<p>To create an entry, first make sure that the <code>input.html</code> file is set up properly so waxtablet can parse the
+						Entry text.  This is most easily done by first closing the <code>input.html</code> file, then entering the following command:</p>
+					<p class="codeline"><code>waxtablet -T</code></p>
+					<p>This outputs or writes the basic template to <code>input.html</code> which provides markup for structuring the Entry data.</p>
+					<p>The template looks like this:</p>
+					<p class="codeline">
+					<code> &lt;!-- BEGIN ENTRY --&gt;</code></br>
+ 					<code> &lt;!-- NUMBER --&gt;</code></br>
+        			<code>&lt;!-- DATE --&gt;</code></br>
+        			<code>&lt;!-- KEYWORDS: --&gt;</code></br>
+ 				     <code> &lt;!-- TEXT --&gt;</code></br>
+					<code>&lt;p&gt;&lt;/p&gt;</code></br>
+					<code>&lt;p&gt;&lt;/p&gt;</code></br>
+					<code>&lt;p&gt;&lt;/p&gt;</code></br></p>
+					<p>Once this is in <code>input.html</code>, open this file and add the Entry text.</p>
+					<p>The first 5 lines contain only html comments (the lines with the exclamation mark).  The only line which needs to be filled out
+						by the user is the <code>KEYWORDS:</code> line. After the "KEYWORDS:", enter any keywords or topic-words for this Entry, like so:</p>
+ 		       		<p class="codeline" style="margin-left: 20%"><code>&lt;!-- KEYWORDS: python text html computer-application command-line --&gt;</code>
+					<p>waxtablet will parse these and put them in the current entry-database for this entry. Keywords must be separated ONLY by 
+					a single space.  Do not separate keywords with commas, dashes or any other character.  If a keyword is to actually consist of two words,
+					use a dash or any other text character between the two words. </p>
+					<p> Leave the other comment lines there, and leave them alone.</p>
+					<p>Below the comment lines are html tags.  The tags shown above are for paragraphs (&lt;p&gt;&lt;/p&gt;). </p>
+					<p>If you don't know html, just put all of the words you write between one or more sets of the paragraph tags like so: </p>
+ 		       		<p class="codeline" style="margin-left: 16%"><code>&lt;p&gt;This is a paragraph. This is a sentence of a paragraph.  Here is another sentence 
+						in this paragraph.&lt;/p&gt; </code></p>
+ 		       		<p class="codeline" style="margin-left: 16%"><code>&lt;p&gt;This is a sentence of another paragraph.  We are now working on our 
+					second sentence of the second paragraph.&lt;/p&gt; </code></p>
+					<p>All of the text information for the Entry must be placed below  the <code> &lt;!-- TEXT --&gt;</code> comment line. 
+						Any other text in valid html markup -- such as divs, sections, lists, tables, etc -- may of course also be added.</p>
+					<p>When all the text has been entered, close the <code>input.html</code> and enter the following at the prompt:</p>
+					<p class="codeline"><code>waxtablet -v c</code></p>
+					<p>This will make waxtablet read the information from <code>input.html</code> into an Entry in the current database.  Other relevant 
+						information indicated by the comment lines in above.</p>
+
+				<h2>Reading Entries</h2>
+					<p>Retrieving (or Reading) Entries involves reading the Entry information for one or more Entries from the current entry-database.</p>
+					<p>The particular way in which Entries are targetted for selection is explained here.  The search criteria which apply for retrieving 
+					Entries also apply to Deleting and Updating Entries.</p>
+					<p>Each command described below for reading Entries involves using the <code>-v</code> option followed by a single letter argument 
+						<code>r</code> (for "read") followed by one of several other option letters which specify how to select Entries.</p>
+					
+					<p class="sub-section">Read Commands</p>
+					<p>Select all of the Entries in the current entry-database:</p>
+					<p class="codeline"><code>waxtablet -v r -a</code></p>
+					<p>Target a range of Entries based on Entry Number.  Put the two numbers in quotes, separated by a single space. 
+						The below demonstrates retrieving Entries whose numbers are 2 through 12.</p>
+					<p class="codeline"><code>waxtablet -v r -n "2 12"</code></p>
+					
+					<p>Target a range of Entries based on Entry Date.  Put the two dates in quotes, separated by a single space. The dates must
+						be in the format YYYY-MM-DD.  Example, search all Entries whose dates are from March 7, 2017 to June 12 2017:</p>
+					<p class="codeline"><code>waxtablet -v r -n "2017-03-07 2017-06-12"</code></p>
+
+					<p>Target the first number of Entries (by Entry Number).  Optionally specify a number.  Example, get the first 7:</p>
+					<p class="codeline"><code>waxtablet -v r -j 7</code></p>
+					<p>...or just pass the option to get the default number (5): </p>
+					<p class="codeline"><code>waxtablet -v r -j</code></p>
+					<p>Target the last number of Entries (by Entry Number).  Optionally specify a number.  Example, get the first 7:</p>
+					<p class="codeline"><code>waxtablet -v r -t 7</code></p>
+					<p>...or just pass the option to get the default number (5): </p>
+					<p class="codeline"><code>waxtablet -v r -t</code></p>
+					<p>Target Entries which have certain keywords.  List all keywords together surrounded by quotes, each separated by a single space:</p>
+					<p class="codeline"><code>waxtablet -e "python text html computer-application command-line"</code></p>
+					<p>Target Entries which have a specific date.  Dates must be formatted like YYYY-MM-DD:</p>
+					<p class="codeline"><code>waxtablet -f "2017-03-07"</code></p>
+					<p>Target Entries which have a certain value for a date-member, that is year, month or day:</p>
+					<p>Get all Entries with a specific year:</p>
+					<p class="codeline"><code>waxtablet -m "year 2017"</code></p>
+					<p>Get all Entries with a specific month:</p>
+					<p class="codeline"><code>waxtablet -m "month 03"</code></p>
+					<p>Get all Entries with a specific day (date):</p>
+					<p class="codeline"><code>waxtablet -m "day 17"</code></p>
+					<p>Target Entries which have certain words in the text: </p>
+					<p class="codeline"><code>waxtablet -s "python application text parse"</code></p>
+					<p>Target Entries by one or more Entry numbers:</p>
+					<p>(Get Entries with number 1, 4, 8, 11, 13, 21)</p>
+					<p class="codeline"><code>waxtablet -g "1 4 8 11 13 21"</code></p>
+					<p></p>
+					<p>The targetting of Entries also allows a <code>strict query</code>, which stipulates that all Entries must have each search
+						value which are passed in as an argument to options which involve searching for more than one value.</p>
+					<p>For example, the line above which demonstrates a search for certain keywords will return Entries which have one or more
+						of any of the keywords passed in.  Including the <code>strict query</code> option, however, makes waxtablet return only
+						those Entries which have <span class="italic">all</span> of the passed-in keywords.  </p>
+					<p>This example below demonstrates.  It passes the <code>r</code> argument to the <code>-v</code> option, which retrieves 
+						Entries from the database, the <code>-e</code> option followed by a list of words means to search for Entries with the
+						keywords which follow it, and the <code>-q</code> option specifies that only Entries with all of the passed-in 
+						keywords should be retrieved:</p>
+					<p class="codeline"><code>waxtablet -q -v r -e "python text html computer-application command-line"</code></p>
+					<p>Note that, as shown above, the <code>-q</code> option must be passed-in the same command with the other options and arguments to
+					specify the strict search.</p>
+
+				<h2>Deleting Entries</h2>
+					<p>Deleting Entries involves deleting the Entry information for one or more Entries from the current entry-database.</p>
+					<p>The syntax described above for reading Entries also works for deleting them.  The <code>-v d</code> option and argument are used
+						instead.</p>
+					<p>Below are two examples to demonstrate.</p>
+					<p>Target all of the Entries in the current entry-database for deletion.</p>
+					<p class="codeline"><code>waxtablet -v d -a</code></p>
+					<p>Target a range of Entries based on Entry Number for deletion.  Put the two numbers in quotes, separated by a single space. 
+						The below demonstrates retrieving Entries whose numbers are 2 through 12.</p>
+					<p class="codeline"><code>waxtablet -v d -n "2 12"</code></p>
+					<p> ... and so on.</p>
+					<p>Note that the two examples above are the same as the first two examples demonstrating reading Entries.  The only difference
+						is the argument used to the <code>-v</code> option.</p>
+					<p class="sub-section" style="font-weight: bold; background-color: #c4c4c4; padding-left: 10px; width: 10%">Important note</p>
+					<p>While it is possible to use the syntax for targetting Entries to delete multiple Entries, the safest way to delete Entries is
+						one at a time.  This can be done with the <code>-g</code> option, as with reading Entries above.  For example, to delete one Entry
+						whose Entry Number is 3:  </p>
+					<p class="codeline"><code>waxtablet -v d -g 3</code></p>
+					<p>In the case of multiple deletions, it is more laborious but also more safe to delete one Entry at a time in this manner.</p>
+					<p>The next safest way to delete multiple Entries is to use <code>-g</code> with multiple Entry numbers:</p>
+					<p class="codeline"><code>waxtablet -v d -g "3 4 5 9"</code></p>
+					<p>Remember: once you delete it, it is for all intents and purposes, gone.</p>
+				<h2>Updating Entries</h2>
+					<p>Updating Entries involves Reading the Entry information for one or more Entries from the current entry-database.  The Entries
+						are printed to <code>input.html</code>, where the details of them can be modified.  When the desired modifications are 
+						completed, the <code>input.html</code> file should be closed, and waxtablet is called again at the prompt to parse the 
+						Entry information, after which it is updated in the current entry-database.</p>
+					<p>The syntax described above for reading and Deleting Entries also works for selecting them for update.  The <code>-v d</code>
+						 option and argument are used instead.</p>
+					<p>Below are two examples to demonstrate.</p>
+					<p>It is possible to update Entry Keywords, Entry Text, or both.  waxtablet will update these depending on the particular setting
+						used for this in the <code>wtab_app</code> database, where the applications configuration settings are stored.  The default
+						setting is to update both Entry Keywords and Entry Text.  Setting it to either Entry Keywords <span class="italic">or</span>
+						Entry Text will cause waxtablet to actually execute the update of the one or the other only, not both.  To set this behavior,
+						use the following commands:</p>
+					<p>Set waxtablet to update only Entry Keywords:</p>
+					<p class="codeline"><code>waxtablet -i "keywords"</code></p>
+					<p>Set waxtablet to update only Entry Text:</p>
+					<p class="codeline"><code>waxtablet -i "text"</code></p>
+					<p>Set waxtablet to update both Entry Keywords and Entry Text:</p>
+					<p class="codeline"><code>waxtablet -i "text_and_keywords"</code></p>
+					<p>The default setting is to update Entry Text and Entry Keywords.</p>
+					<p>The syntax for selecting Entries for update is otherwise as above;</p>
+					<p>Target all of the Entries in the current entry-database for updating.</p>
+					<p class="codeline"><code>waxtablet -v u -a</code></p>
+					<p>Target a range of Entries based on Entry Number for deletion.  Put the two numbers in quotes, separated by a single space. 
+						The below demonstrates retrieving Entries whose numbers are 2 through 12.</p>
+					<p class="codeline"><code>waxtablet -v u -n "2 12"</code></p>
+					<p> ... and so on.</p>
+					<p></p>
+					<p>Next, open <code>input.html</code> and modify the Entry Keywords and Entry Text as desired.  When done, close this file.</p>
+					<p>After this, commit the changes made in <code>input.html</code> with this command:</p>
+					<p class="codeline"><code>waxtablet -U</code></p>
+					<p>The above will update all of the Entries modified in <code>input.html</code>.</p>
+					<!-- p class="sub-section" style="font-weight: bold; background-color: #c4c4c4; padding-left: 10px; width: 10%">Important note</p -->
+					<p class="sub-section">Merging Entries With An Update</p>
+					<p>It is possible to merge two or more updates into one by modifying <code>input.html</code>.  When this is done, waxtablet can
+						optionally delete the old Entry or Entries that were merged into the remaining Entry.</p>
+					<p>For example, imagine that after running the command: </p>
+					<p class="codeline"><code>waxtablet -v u -g "1 2 3"</code></p>
+
+				<p>three Entries have been written to <code>input.html</code> for updating.  
+					<p>The <code>input.html</code> would look like this:</p>
+					<p class="codeline" style="margin-left: 25%">
+					<code> &lt;!-- BEGIN ENTRY --&gt;</code></br>
+ 					<code> &lt;!-- NUMBER:  1 --&gt;</code></br>
+        			<code>&lt;!-- DATE:  2017-03-17 --&gt;</code></br>
+        			<code>&lt;!-- KEYWORDS: web html css browser markup --&gt;</code></br>
+ 				     <code> &lt;!-- TEXT --&gt;</code></br>
+					<code>&lt;p&gt;This is a paragraph for an Entry about web development. &lt;/p&gt;</code></br>
+					<code>&lt;p&gt;This is another paragraph: talk about html, css, markup, etc.&lt;/p&gt;</code></br>
+					<code>&lt;p&gt;Here is a paragraph.&lt;/p&gt;</code></br>
+					</br>
+					<code> &lt;!-- BEGIN ENTRY --&gt;</code></br>
+ 					<code> &lt;!-- NUMBER: 2 --&gt;</code></br>
+        			<code>&lt;!-- DATE: 2017-03-18 --&gt;</code></br>
+        			<code>&lt;!-- KEYWORDS: -- webserver apache php lamp-stack --&gt;</code></br>
+ 				     <code> &lt;!-- TEXT --&gt;</code></br>
+					<code>&lt;p&gt;This paragraph talks about php. Php is a language for generating dynamic web content.&lt;/p&gt;</code></br>
+					<code>&lt;p&gt;Here we discuss apache.  Apache is a web server. Php can run on the apache web server.&lt;/p&gt;</code></br>
+					<code>&lt;p&gt;In this paragraph we can put it all together: Linux, Apache, MySQL and PHP.  That's the "lamp" stack.&lt;/p&gt;</code></br>
+					</br>
+					<code> &lt;!-- BEGIN ENTRY --&gt;</code></br>
+ 					<code> &lt;!-- NUMBER: 3 --&gt;</code></br>
+        			<code>&lt;!-- DATE: 2017-03-18 --&gt;</code></br>
+        			<code>&lt;!-- KEYWORDS: python desktop tkinter logging --&gt;</code></br>
+ 				     <code> &lt;!-- TEXT --&gt;</code></br>
+					<code>&lt;p&gt;This paragraph talks about python.  Use it to write desktop applications.&lt;/p&gt;</code></br>
+					<code>&lt;p&gt;This paragraph talks about tkinter.  tkinter is a gui library for python.&lt;/p&gt;</code></br>
+					<code>&lt;p&gt;Finally, we talk about logging.  Yes, Python has its own support to handle applications writing to their log files.
+						&lt;/p&gt;</code></br></p>
+
+					<p>What we could do is <span class="italic">merge</span> two or more Entries together; In this example, let's merge Entries 1 and 2. 
+						More specifically, we will merge Entry 2 into Entry 1.</p>
+					<p>To do this, modify <code>input.html</code> so it now looks like this:</p>
+					<p class="codeline" style="margin-left: 25%">
+					<code> &lt;!-- BEGIN ENTRY --&gt;</code></br>
+ 					<code> &lt;!-- NUMBER: 1 --&gt;</code></br>
+        			<code>&lt;!-- DATE: 2017-03-17 --&gt;</code></br>
+        			<code>&lt;!-- KEYWORDS: -- web html css browser markup webserver apache php lamp --&gt;</code></br>
+ 				     <code> &lt;!-- TEXT --&gt;</code></br>
+					<code>&lt;p&gt;This is a paragraph for an Entry about web development. &lt;/p&gt;</code></br>
+					<code>&lt;p&gt;This is another paragraph: talk about html, css, markup, etc.&lt;/p&gt;</code></br>
+					<code>&lt;p&gt;Here is a paragraph.&lt;/p&gt;</code></br>
+					<code>&lt;p&gt;This paragraph talks about php. Php is a language for generating dynamic web content.&lt;/p&gt;</code></br>
+					<code>&lt;p&gt;Here we discuss apache.  Apache is a web server. Php can run on the apache web server.&lt;/p&gt;</code></br>
+					<code>&lt;p&gt;In this paragraph we can put it all together: Linux, Apache, MySQL and PHP.  That's the "lamp" stack.&lt;/p&gt;</code></br>
+					</br>
+					<code> &lt;!-- BEGIN ENTRY --&gt;</code></br>
+ 					<code> &lt;!-- NUMBER: 3 --&gt;</code></br>
+        			<code>&lt;!-- DATE: 2017-03-18 --&gt;</code></br>
+        			<code>&lt;!-- KEYWORDS: python desktop tkinter logging --&gt;</code></br>
+ 				     <code> &lt;!-- TEXT --&gt;</code></br>
+					<code>&lt;p&gt;This paragraph talks about python.  Use it to write desktop applications.&lt;/p&gt;</code></br>
+					<code>&lt;p&gt;This paragraph talks about tkinter.  tkinter is a gui library for python.&lt;/p&gt;</code></br>
+					<code>&lt;p&gt;Finally, we talk about logging.  Yes, Python has its own support to handle applications writing to their log files.
+						&lt;/p&gt;</code></br></p>
+					<p>In the above example, Entry 2 is gone, and Entry 1 has the keywords and paragraphs from Entry 2. (Note: Leave the Entry Date alone:
+						if you modify it, the modification won't be updated in the entry-database.) These two Entries have now been merged together as Entry 
+						Number 1.</p>
+					<p>Now close <code>input.html</code> if it is open in a text editor.  </p>
+					<p>In order to effect this change in the entry-database, waxtablet must be set to automatically merge updates in the database. Run the command:</p>
+					<p class="codeline"><code>waxtablet -A</code></p>
+					<p>Then run:</p>
+					<p class="codeline"><code>waxtablet -U</code></p>
+					<p>To update the entry-database.  This will update Entry 1 to have the Entry Text and Entry Keywords from Entry 2, and it will delete
+						Entry 2.  Now the database will have only Entry 1, 3... etc.  </p>
+				<h2>Displaying Entries</h2>
+					<p>Entries are displayed using html. Waxtablet uses two html files for this: <code>output.html</code> and an html file used as a
+						 <span class="italic">template </span> for the actual markup structure of the display. That is, the markup which formats the
+							presentation or appearance is all in the template.  The template markup along with the information in the Entries is written to
+							<code>output.html</code>.  When this process is complete, <code>output.html</code> is then opened (typically in a browser) 
+							for display.  </p>
+					<p>So once all of the markup and Entries have been written to <code>output.html</code>, just open it in your browser by entering the
+						full path to <code>output.html</code> in the browser bar or navigating the browser to the file's location in the
+						<code>html-templates</code> directory.</p>
+					<p>The templates are stored in the <code>html-templates</code> directory.  Waxtablet initially includes a default template (along with
+						two .css files), but any other templates can also be added to the <code>html-templates</code> directory and selected for use in display.  </p>
+					<p class="sub-section">Styling the html in the template</p>
+					<p>Naturally, .css (and javascript) files can also be used with each template.  Just remember to include them with <code>&lt;link&gt;</code> 
+						tags in the template's html.  </p>
+					<p>The Entries themselves are written to the <code>output.html</code> file surrounded by markup.</p>
+					<p class="codeline">
+							<code>&lt;div class=\"entry\"&gt;</code><br></br>
+                                          <code>&lt;p class="entry_number"&gt;&lt;/p&gt;</code><br></br>
+                                         <code> &lt;p class="entry_date"&gt;&lt;/p&gt;</code><br></br>
+                                          <code>&lt;p class="entry_keywords"&gt;&lt;/p&gt;</code><br></br>
+                                          <code>&lt;/div&gt;</code><br></br>
+					</p>
+					<p class="sub-section">Working with html templates</p>
+					<p>In order to select an html template to format the display, bring up the Settings Main Menu:</p>
+					<p class="codeline"><code>waxtablet -M</code></p>
+					<p> and select the option to "Set the current html template to be used for displaying entries".  All templates in the 
+						<code>html-templates</code> are displayed.</p>
+					<p>(NOTE: Do not place any files in <code>html-templates</code> other than actual templates.  Waxtablet displays templates for the
+						above selection based on what files it finds in the <code>html-templates</code> directory that have a <code>.html</code>
+						extension in their filenames, and does not discriminate among them.)</p>
+					<p>To add a template to <code>html-templates</code>, simply place the following comment-line wherever in the markup that 
+						the Entry information is to be added:</p>
+ 				     
+					<p class="codeline"><code> &lt;!-- INSERT ENTRIES --&gt;</code></p>
+					<p>(You can see an example of this by looking at the <code>default.html</code> template in <code>html-templates</code>.)  Then
+						copy or move the file manually to the <code>html-templates</code> directory.</p>
+					<p>The location of the <code>html-templates</code> is placed in a default location when waxtablet is installed, but it can be moved 
+						elsewhere. This can be done by first moving the <code>html-templates</code> where you want it to go.
+						Using the Main Settings Menu, select option 1, and enter the full or absolute path to the new location of the directory. 
+						</p>
+					<p>On Microsoft Windows, an absolute path to the directory's location looks like:</p>
+					<p class="codeline"><code>C:\Users\username\Documents\html-templates</code></p>
+					<p>On Linux or Unix/Macintosh, an absolute path to the directory's location looks like:</p>
+					<p class="codeline"><code>/home/username/Documents/html-templates</code></p>
+				<h2>Additional Options (Optional Arguments)</h2>
+				<table class="html-ref-table">
+            		<tr>
+                    <td class="html-ref-table-td"><code> -q ( --strict-query)</code> </td>
+                    <td class="html-ref-table-td"><code>"Target only entries whose specified columns have all corresponding search values.  Use this
+						option in the same command which selects Entries for display.</code></td>
+ 		           </tr>
+        		    <tr>
+                    <td class="html-ref-table-td"><code> -w ( --delete-keywords)</code></td>
+                    <td class="html-ref-table-td"><code>Delete the keywords which match the words passed in as an argument following this option 
+						from the keywords table and all entries.</code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code> -l ( --display-keywords) </code></td>
+                    <td class="html-ref-table-td"><code>Display all keywords for the current entry database in the terminal.</code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code> -A ( --auto-delete) </code></td>
+                    <td class="html-ref-table-td"><code>If two or more entries are written to the input.html file for an update
+                         and two or more are then merged, delete the entry or entries which were merged into the other entry.</code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code> -N ( --new-entry-db) </code></td>
+                    <td class="html-ref-table-td"><code>Create a new Entry database.  Ex. -N my-new-entry-database.</code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code> -C ( --change-to-entry-db) </code></td>
+                    <td class="html-ref-table-td"><code>Change to a another Entry database. Ex. -C my-other-database.</code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code> -D ( --delete-entry-db) </code></td>
+                    <td class="html-ref-table-td"><code>Delete an Entry database. Ex. -D my-new-entry-database.</code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code> -S ( --show-all-entry-dbs) </code></td>
+                    <td class="html-ref-table-td"><code>Show All entry-databases.</code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code> -P ( --change-template) </code></td>
+                    <td class="html-ref-table-td"><code>Change to a new html template for displaying the entry contents.
+                          (The template will written to output.html.)</code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code> -L ( --show-all-templates) </code></td>
+                    <td class="html-ref-table-td"><code>Show all html templates.</code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code> -R ( --delete-template) </code></td>
+                    <td class="html-ref-table-td"><code>Delete an html template.</code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code> -M ( --settings-main-menu) </code></td>
+                    <td class="html-ref-table-td"><code>Show a menu to set/initialize the values for settings 
+                        in the  application database.</code></td>
+					</tr>
+					<tr>
+                    <td class="html-ref-table-td"><code> -T ( --input-template) </code></td>
+                    <td class="html-ref-table-td"><code>Outputs (writes) basic information about how to 
+                        structure and use the input.html file for creating entries to the input.html file.</code></td>
+					</tr>
+				</table>
+					
+					<p class="codeline"><code>waxtablet -v d -g "3 4 5 9"</code></p>
+					<p class="codeline"><code>waxtablet -</code></p>
+<span class="italic"></span> 
+<span class="italic"></span> 
+<span class="italic"></span> 
+			</div>
+					<p class="sub-section"></p>
+
+		</section>
+
+	</div>
+
+	</body>
+</html>
