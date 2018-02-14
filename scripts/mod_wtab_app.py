@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 """
 	A script to modify the values in wtab_app.
-	for your platform/OS.
+	Modify paths, etc. as needed for your platform/OS.
 """
 import sys
 import os
