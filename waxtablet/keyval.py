@@ -8,7 +8,7 @@
 
 
 """
-
+import sys
 import sqlmg
 import sqlmin
 

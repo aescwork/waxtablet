@@ -53,7 +53,7 @@ class Controller():
 		# handle first access of the locs_wtab_app database
 		
 		user_name = ""
-		wtab_app_path = ""
+		self.wtab_app_path = ""
 		os_name = os.name
 
 		try:	
@@ -81,22 +81,22 @@ class Controller():
 
 		# if wtab_app
 
-		if os.path.isfile(self.default_wtab_app_path):
-			wtab_app_path = self.default_wtab_app_path
+		if os.path.isfile(os.path.join(self.default_wtab_app_path, "wtab_app")):
+			self.wtab_app_path = self.default_wtab_app_path
 		else:
 			if db_utils.create_wtab_app(self.default_wtab_app_path, os_name, user_name):
-				wtab_app_path = self.default_wtab_app_path
+				self.wtab_app_path = self.default_wtab_app_path
 				
 			else:
 				self.top_fail.display("Unable to create the wtab_app database file for user " + user_name, 2, 1, 0)
-				self.top_fail.display("Make sure you have permissions to create files and directories in the specified location: " + wtab_app_path, 2, 1, 0)
+				self.top_fail.display("Make sure you have permissions to create files and directories in the specified location: " + self.wtab_app_path, 2, 1, 0)
 				self.top_fail.display("Make sure there are no additional problems such as lack of storage space, etc.  Exiting.", 2, 1, 2)
 				self.EXIT_CODE = 1
 				self.wt_exit()
 		
 		
 		try:
-			self.sa = keyval.KeyVal(os.path.join(wtab_app_path, "wtab_app"), "settings", "settings_key", "settings_val") 	# application settings
+			self.sa = keyval.KeyVal(os.path.join(self.wtab_app_path, "wtab_app"), "settings", "settings_key", "settings_val") 	# read application settings
 		except Exception as e:
 			self.top_fail.display("Error Accessing wtab_app database file for user " + user_name + ": " + str(e) + " ...Exiting.", 2, 2, 2)
 			self.EXIT_CODE = 1
@@ -113,7 +113,7 @@ class Controller():
 		
 		except Exception as e:
 			self.top_fail.display("Error accessing waxtablet files:  " + str(e) + " ...Exiting.", 2, 2, 1)
-			self.top_fail.display("Make sure wtab_app is located at " + wtab_app_path + ".", 2, 1, 3)
+			self.top_fail.display("Make sure wtab_app is located at " + self.wtab_app_path + ".", 2, 1, 3)
 			self.EXIT_CODE = 1
 			self.wt_exit()
 				
@@ -365,9 +365,14 @@ class Controller():
 					for e_n in entry_numbers.split(" "):
 						wr = True
 						for e_nmbr in self.rdbe.entry_list:
-							if e_nmbr.entry_number == int(e_n):	
+							try:				# handle it if e_nmbr.entry_number is None
+								if e_nmbr.entry_number == int(e_n):	
+									wr = False
+									break
+							except:
 								wr = False
 								break
+
 						if wr:
 							delete_entries.append(e_n)
 	
@@ -394,10 +399,14 @@ class Controller():
 				Set to automatically merge updates in the database when updates form input.html are committed.
 			"""
 			if self.sa.d['auto_delete_merge_update'] == "1":							# if set to automatically delete merged updates, unset it.
+				del(self.sa)
+				self.sa = keyval.KeyVal(os.path.join(self.wtab_app_path, "wtab_app"), "settings", "settings_key", "settings_val") 	# read application settings
 				self.sa.d['auto_delete_merge_update'] = "0"						
 				self.top_ok.display("Entries which have been merged into other Entries will not be deleted after committing update.", 2, 1, 1)
 
 			elif self.sa.d['auto_delete_merge_update'] == "0":							# if not set to automatically delete merged updates, set it.
+				del(self.sa)
+				self.sa = keyval.KeyVal(os.path.join(self.wtab_app_path, "wtab_app"), "settings", "settings_key", "settings_val") 	# read application settings
 				self.sa.d['auto_delete_merge_update'] = "1"							
 				self.top_ok.display("Entries which have been merged into other Entries will be deleted after committing update.", 2, 1, 1)
 			
@@ -407,10 +416,14 @@ class Controller():
 				Set to automatically merge updates in the database when updates form input.html are committed.
 			"""
 			if self.sa.d['auto_reindex_entries'] == "1":							# if set to automatically delete merged updates, unset it.
+				del(self.sa)
+				self.sa = keyval.KeyVal(os.path.join(self.wtab_app_path, "wtab_app"), "settings", "settings_key", "settings_val") 	# read application settings
 				self.sa.d['auto_reindex_entries'] = "0"						
 				self.top_ok.display("Entry numbers will not be re-indexed after update or deletion.", 2, 1, 1)
 
 			elif self.sa.d['auto_reindex_entries'] == "0":							# if not set to automatically delete merged updates, set it.
+				del(self.sa)
+				self.sa = keyval.KeyVal(os.path.join(self.wtab_app_path, "wtab_app"), "settings", "settings_key", "settings_val") 	# read application settings
 				self.sa.d['auto_reindex_entries'] = "1"							
 				self.top_ok.display("Entry numbers will be re-indexed after update or deletion so they are consecutive.", 2, 1, 1)
 
@@ -652,6 +665,8 @@ class Controller():
 			"""	
 	
 			loc = self.sa.d['path_to_html_templates']
+			del(self.sa)
+			self.sa = keyval.KeyVal(os.path.join(self.wtab_app_path, "wtab_app"), "settings", "settings_key", "settings_val") 	# read application settings
 			
 			m.display("Html templates current location: " + loc, 3, 1, 0)
 			m.display("To accept this, press enter or enter the full path to the folder/directory where html templates are to be stored.", 3, 2, 2)
@@ -667,6 +682,8 @@ class Controller():
 			"""	
 
 			loc = self.sa.d['path_to_entry_databases']
+			del(self.sa)
+			self.sa = keyval.KeyVal(os.path.join(self.wtab_app_path, "wtab_app"), "settings", "settings_key", "settings_val") 	# read application settings
 			
 			m.display("Entry databases current location: " + loc, 3, 1, 0)
 			m.display("To accept this, press enter or enter the path to where entry databases are to be stored.", 3, 2, 2)
@@ -688,6 +705,8 @@ class Controller():
 			m.display("Current html template: " + self.sa.d['current_html_template'], 3, 1, 1)
 			u_i = m.prompt(" (press enter to skip): ", 3, 1, 0)
 			if u_i != '':
+				del(self.sa)
+				self.sa = keyval.KeyVal(os.path.join(self.wtab_app_path, "wtab_app"), "settings", "settings_key", "settings_val") 	# read application settings
 				self.sa.d['current_html_template'] = u_i
 
 
@@ -699,24 +718,23 @@ class Controller():
 			u_i = m.prompt("Enter the new full (absolute) path (press enter to skip) : ", 3, 1, 0)
 
 			if u_i != '':
+				del(self.sa)
+				self.sa = keyval.KeyVal(os.path.join(self.wtab_app_path, "wtab_app"), "settings", "settings_key", "settings_val") 	# read application settings
 				self.sa.d['path_to_input_html_file'] = u_i
 
 			m.display("The current path to output.html: " + self.sa.d['path_to_output_html_file'], 3, 1, 1)
 			u_i = m.prompt("Enter the new full (absolute) path (press enter to skip) : ", 3, 1, 0)
 
 			if u_i != '':
+				del(self.sa)
+				self.sa = keyval.KeyVal(os.path.join(self.wtab_app_path, "wtab_app"), "settings", "settings_key", "settings_val") 	# read application settings
 				self.sa.d['path_to_output_html_file'] = u_i
 
 				p_i = flwk.FileWork(os.path.join(u_i, "input.html"))
 				p_o = flwk.FileWork(os.path.join(u_i, "output.html"))
 
-			
-	#		p_i.write_to_file(self.sa.d['basic_input_html_file_template'])
-	#		p_o.write_to_file(" ")
-	#		p_i.close_file()
-	#		p_o.close_file()
-			
-	
+
+
 		def five(m):
 			"""	
 			Set the current entry database.
@@ -724,8 +742,10 @@ class Controller():
 			m.display("The current entry_database is: " + self.sa.d['current_entry_database'], 3, 1, 1)
 			m.display("Available entry databases: ", 3, 1, 1)
 			self.show_files(m, self.sa.d['path_to_entry_databases'])
-			u_i = m.prompt(" (press enter to skip): ", 3, 1, 0)
+			u_i = m.prompt("Select the new current database (type its name or just press enter to skip): ", 3, 1, 0)
 			if u_i != '':
+				del(self.sa)
+				self.sa = keyval.KeyVal(os.path.join(self.wtab_app_path, "wtab_app"), "settings", "settings_key", "settings_val") 	# read application settings
 				self.sa.d['current_entry_database'] = u_i
 
 
@@ -769,10 +789,14 @@ class Controller():
 			"""
 			if self.sa.d['auto_delete_merge_update'] == "1":
 				m.display("Entries will not be deleted from their Entry database if they are merged in an update.", 3, 1, 1)
+				del(self.sa)
+				self.sa = keyval.KeyVal(os.path.join(self.wtab_app_path, "wtab_app"), "settings", "settings_key", "settings_val") 	# read application settings
 				self.sa.d['auto_delete_merge_update'] = "0"
 				
 			elif self.sa.d['auto_delete_merge_update'] == "0":
 				m.display("Entries will be deleted from their Entry database if they are merged in an update.", 3, 1, 1)
+				del(self.sa)
+				self.sa = keyval.KeyVal(os.path.join(self.wtab_app_path, "wtab_app"), "settings", "settings_key", "settings_val") 	# read application settings
 				self.sa.d['auto_delete_merge_update'] = "1"
 
 			u_i = m.prompt(" press enter to continue: ", 3, 1, 0)
@@ -901,7 +925,7 @@ class Controller():
 		else:
 			return dln.entry_list[0].entry_number
 
-
+
 	def wt_exit(self):
 		"""
 			Display all success and fail messages as specified in wtab_app db and exit with self.EXIT_CODE.
