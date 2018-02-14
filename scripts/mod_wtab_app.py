@@ -7,7 +7,7 @@
 import sys
 import os
 
-sys.path.append("/home/developer/.waxtablet/src") 	# path to source code files
+sys.path.append(".waxtablet/src") 	# path to source code files
 
 import sqliteminor
 import sqlitemgr
@@ -39,7 +39,7 @@ def show_db_vals(sm, t):
 
 if __name__ == "__main__":
 
-	path_to_db = "/home/developer/.waxtablet/wtab_usr_data/wtab_app" # modify this path as needed
+	path_to_db = ".waxtablet/wtab_usr_data/wtab_app" # modify this path as needed
 
 	sg_read = sqlitemgr.SQLiteMgr(path_to_db)
 	sm_read = sqliteminor.SQLiteMinor(sg_read.make_conn(), "settings")
